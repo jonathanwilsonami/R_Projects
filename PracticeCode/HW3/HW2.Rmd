@@ -1,0 +1,31 @@
+---
+title: "Stat 123 Homework 3"
+author: "Jonathan Wilson"
+date: "January 11, 2019"
+output: word_document
+---
+
+Make a list containing three elements named "y2011", "y2012", and "y2013"
+containing three data.frames of weather information for years 2011, 2012, and
+2013 in Provo. You will need to read in the data found in the instructions.
+
+```{r}
+
+```
+
+Using the list you created, how many days in 2011 had a maximum temperature above 90 degrees?  Watch out, there may be missing values!
+```{r}
+
+```
+
+
+Using the list you created, how many days in 2012 had a maximum temperature above 90 degrees?
+```{r}
+
+```
+
+
+Using the list you created, how many days in 2013 had a maximum temperature above 90 degrees?
+```{r}
+
+```

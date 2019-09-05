@@ -1,0 +1,52 @@
+---
+title: "Stat 123 Homework 4"
+author: "Jonathan Wilson"
+date: "January 12, 2019"
+output: word_document
+---
+
+```{r}
+#Make working directory global
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW4")
+```
+
+Read in the file associated with the link mout50x150. In this file, the students are across the rows and the questions are across the columns. If there is a 1, the student got the given question correct. If there is a 0, the student got the given question incorrect. 
+
+```{r}
+mout <- read.table("mout.csv", sep=",", header=FALSE,
+                  stringsAsFactors=FALSE)
+#names()
+```
+
+Now using the "mean" function, find the the percentages (as decimals) of students that got Q10 correct. Then do the same for Q11, and Q12.
+
+```{r}
+#Q10
+mean(mout[,11])
+#Q11
+mean(mout[,12])
+#Q12
+mean(mout[,13])
+
+```
+
+Read in the file associated with the link mout7500x3. In this file, the student numbers repeat down the first column, the question numbers repeat down the second column, and the student score given the specific question is in the third column. 
+
+```{r}
+iout <- read.table("iout.csv", sep=",", header=FALSE,
+                  stringsAsFactors=FALSE)
+```
+
+Now use the "mean" function to find the overall score for student 1. Then do the same for students 3 and 5 (students 1,3, and 5 are the first three students).
+```{r}
+student1<- iout[seq(1, nrow(iout), 50),]#This will get every nth row. 50 is n. 1 is the start row. 
+student3<- iout[seq(2, nrow(iout), 50),]
+student5<- iout[seq(3, nrow(iout), 50),]
+
+#Scores
+mean(student1[,3])
+mean(student3[,3])
+mean(student5[,3])
+```
+
+Note: Both these datasets contain exactly the same data, but mout50x150 is considered to be formatted in a "wide" format, while mout7500x3 is considered to be a "long" format. Different circumstances will lend better to different formats. It is good practice to recognize the difference between these two and when one would be more advantageous than the other. Reshape() is a function in R that can be used to convert from wide to long and vice versa (but is not needed for this homework).

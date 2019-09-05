@@ -1,0 +1,49 @@
+---
+title: "Stat 123 Homework 5"
+author: "Jonathan Wilson"
+date: "January 17, 2019"
+output: word_document
+---
+
+```{r}
+#Make working directory global
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW5")
+```
+
+
+Cleaning the data in the unclean report.
+```{r}
+unclean.report <- read.csv("report.csv", sep=",", header=FALSE,
+                  stringsAsFactors=FALSE)
+
+clean.report <- unclean.report[5:96, 1:2]
+names(clean.report) <- c("date","interest")
+clean.report$date <- as.Date(as.character(clean.report$date), format="%Y-%m-%d")
+clean.report$interest <- as.integer(as.character(clean.report$interest))
+
+
+clean.report$weekday <- weekdays(as.Date(clean.report$date))
+head(clean.report)
+```
+Comparing to HW2:
+```{r}
+mondays <- clean.report[clean.report$weekday=="Monday",]
+mean.monday <- mean(mondays$interest, na.rm=TRUE)
+mean.monday
+
+weekends <- clean.report[clean.report$weekday %in% c("Sunday","Saturday"),]
+mean.weekends <- mean(weekends$interest, na.rm=TRUE)
+mean.weekends
+
+weekdays <- subset(clean.report, !(clean.report$weekday %in% c("Sunday","Saturday")))
+mean.weekdays <- mean(weekdays$interest, na.rm=TRUE)
+mean.weekdays
+
+median.interest <- median(clean.report$interest, na.rm=TRUE)
+median.interest
+min.interest <- min(clean.report$interest, na.rm=TRUE)
+min.interest
+max.interest <- max(clean.report$interest, na.rm=TRUE)
+max.interest
+
+```

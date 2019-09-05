@@ -1,0 +1,64 @@
+---
+title: "Stat 123 Homework 15"
+author: "Jonathan Wilson"
+date: "February 18, 2019"
+output: word_document
+---
+```{r}
+
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW15")
+#Make sure you are calling the right lib in the RIGHT ORDER!
+
+library(plyr); library(magrittr); library(dplyr); library(data.table)
+```
+Data on the daily concentration of fine particles pollutant (PM2.5) for all
+monitor sites in Utah County is available in .csv files attached to the assignment, 
+with each file having data from a year. These files have the name format
+"ad_viz_plotval_data-XXXX.csv" (where XXXX is place holder for the year).  
+
+Write a function named 'air' that
+takes a 'year' argument and returns a data.frame containing that data for
+that year, suppressing the automatic conversion to factors.
+```{r}
+air <- function(year){
+  file <- sprintf("ad_viz_plotval_data-%s.csv", year)
+  data <- read.table(file, sep=",", header=TRUE, stringsAsFactors=FALSE)
+  return(data)
+}
+
+```
+
+Using lapply, make a list containing a data.frame for each year.
+```{r}
+data.list <- lapply(2009:2016, air)
+```
+
+Combine all the data.frames in the list to one data.frame (without losing any data).
+```{r}
+data <- rbindlist(data.list)
+```
+
+
+Summarize this big data.frame to yield a data.frame containing only the
+average "DAILY_AQI_VALUE" and the average "Daily.Mean.PM2.5.Concentration" for each
+value of "Date".
+```{r}
+avg.data <- data %>% group_by(Date) %>% summarize(DAILY_AQI_VALUE = mean(DAILY_AQI_VALUE), Daily.Mean.PM2.5.Concentration = mean(Daily.Mean.PM2.5.Concentration))
+```
+
+Produce a scatter plot of the average "Daily.Mean.PM2.5.Concentration" (on
+the y-axis) and average "DAILY_AQI_VALUE" (on the x-axis).
+```{r}
+attach(avg.data)
+my.plot <- plot(DAILY_AQI_VALUE, Daily.Mean.PM2.5.Concentration, main="Scatterplot Example", 
+   xlab="DAILY_AQI_VALUE ", ylab="Daily.Mean.PM2.5.Concentration ", pch=19)
+
+```
+
+Add vertical lines at 50, 100, and 150 on the x-axis.  Hint: See the help for
+the "abline" function.
+```{r}
+plot(DAILY_AQI_VALUE, Daily.Mean.PM2.5.Concentration, main="Scatterplot Example", 
+   xlab="DAILY_AQI_VALUE ", ylab="Daily.Mean.PM2.5.Concentration ", pch=19)
+abline(v=c(50, 100, 150), col=c("green","blue","red"))
+```

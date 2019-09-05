@@ -1,0 +1,47 @@
+---
+title: "Stat 123 Homework 9"
+author: "Jonathan Wilson"
+date: "January 31, 2019"
+output: word_document
+---
+
+```{r}
+
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW9")
+```
+Generate vectors x and y of length 100 from a discrete distribution with four
+outcomes using the sample function (i.e., x <- sample(1:4, 100,
+replace=TRUE)).  Use a "for loop" to create a logical vector determining: 1.
+which of the entries in the two vectors are the same and 2. the total number
+of entries that are the same. Your answer to the first will be a vector of
+length 100 and the answer to the second will be a single value (i.e., a
+vector of length 1).
+```{r}
+x <- sample(1:4, 100, replace=TRUE)
+y <- sample(1:4, 100, replace=TRUE)
+
+#Matches?
+n <- 0
+m1 <- vector()
+for (i in 1:length(x)){
+  if( x[i] == y[i]){
+    m1[i] <- 1
+  }
+  else{
+    m1[i] <- 0
+  }
+  n <- n + 1
+}
+m1
+n
+
+```
+
+Using your 'x' and 'y' variables from above, now do the same calculation
+without a "for loop".  Thought questions (for which you don't need to provide
+an answer): Which method is better?
+```{r}
+match2 <- (x == y)
+match2
+length(match2)
+```

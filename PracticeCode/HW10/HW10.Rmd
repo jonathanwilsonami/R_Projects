@@ -1,0 +1,58 @@
+---
+title: "Stat 123 Homework 10"
+author: "Jonathan Wilson"
+date: "January 31, 2019"
+output: word_document
+---
+
+```{r}
+
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW10")
+```
+
+The greatest common divisor (gcd) of two integers m and n can be calculated
+using Euclid's Algorithm: Divide m by n. If the remainder is zero, the gcd is
+n. If not, divide n by the remainder.  If the remainder is zero, then the
+previous remainder is the gcd. If not, continue dividing the remainder into
+previous remainder until a remainder of zero is obtained. The gcd is the
+value of the last nonzero remainder. 
+
+Using the values 99 and 54, find the gcd using the method above. Hint: The modulos arithematic operator (example x%%y) will return the remainder of dividing x by y.
+```{r}
+m <- 99
+n <- 54
+num <- m
+den <- n
+while(num%%den !=0){
+  rem <- num%%den
+  num <- den
+  den <- rem
+}
+gcd <- den
+gcd
+```
+
+Now, write a function 'gcd' taking two integers 'm' and 'n' which uses a while loop to find the gcd of two integers m and n.  
+```{r}
+gcd <- function(m, n){
+  num <- m
+  den <- n
+  while(num%%den !=0){
+    rem <- num%%den
+    num <- den
+    den <- rem
+  }
+  return(den)
+}
+
+```
+
+Find the gcd of 143 and 91 using your function.
+```{r}
+gcd(143, 91)
+```
+
+Find the gcd of 826 and 602 using your function.
+```{r}
+gcd(826, 602)
+```

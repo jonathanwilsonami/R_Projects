@@ -1,0 +1,92 @@
+---
+title: "Stat 123 Homework 2"
+author: "Jonathan Wilson"
+date: "January 6, 2019"
+output: word_document
+---
+
+```{r}
+
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW2")
+```
+
+
+Using the file given in the instructions, read the daily interest in lds.org for 2014-06-09 through 2014-09-06 into an data.frame.
+```{r}
+#setwd("C:\\Users\\jon\\Documents\\School\\R\\HW\\HW2")
+lds <- read.table("reportclean.csv", sep=",", header=TRUE,
+                  stringsAsFactors=FALSE)
+#lds
+#str(lds)
+#lds <- read.csv("reportclean.csv", stringsAsFactors=FALSE)
+```
+
+Name the variables in the data.frame "date" and "interest".
+```{r}
+names(lds) <- c("date","interest")
+
+```
+
+Replace the "date" character vector in the data.frame into a vector of Date objects of the same name.
+```{r}
+
+lds$date <- as.Date(lds$date, format="%m/%d/%Y")#, format = "%m/%d/%Y"
+
+```
+
+Use the "weekdays" function to define a new variable in the data.frame called "weekday" from the "date" variable.
+```{r}
+lds$weekday <- weekdays(as.Date(lds$date)) 
+```
+
+Find the mean of the interest variable across all Mondays.  
+```{r}
+mondays <- lds[lds$weekday=="Monday",]
+mean.monday <- mean(mondays$interest)
+mean.monday
+```
+
+Find the mean of the interest variable for the weekends.
+```{r}
+weekends <- lds[lds$weekday %in% c("Sunday","Saturday"),]
+mean.weekends <- mean(weekends$interest)
+mean.weekends
+```
+
+Find the mean of the interest variable for all weekdays.
+```{r}
+#By weekdays I am assuming that you mean only Mon-Fri. I could easily run a mean for either. 
+weekdays <- subset(lds, !(lds$weekday %in% c("Sunday","Saturday")))
+mean.weekdays <- mean(weekdays$interest)
+mean.weekdays
+
+```
+
+Comment on whether you believe there is a statistically significant
+difference between the mean interest on weekdays and weekends?  You don't
+have to do a formal test.  We're asking for just your intuition after seeing
+the data. Since your response won't be executable code, do not include it in an r chunk, or if you do, prefix your comments with R's comment character, #.
+
+
+What are the median, minimum, and maximum interest?
+```{r}
+#The mean is much higher on the weekends. I would say it is statistically significant since more people are on 
+#during the weekends. That is my idea. 
+median.interest <- median(lds$interest)
+median.interest
+min.interest <- min(lds$interest)
+min.interest
+max.interest <- max(lds$interest)
+max.interest
+```
+
+
+What is the correlation between interests one day apart?
+```{r}
+lag <- lds[1:89,]
+x <- rep(c("2014-05-09",0,"Sunday"), ncol(lag))
+lag <- rbind(x, lag)#Create lag in rows by one day
+lag$interest <- as.integer(lag$interest)
+cor(lds$interest, lag$interest)
+```
+

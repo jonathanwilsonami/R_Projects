@@ -1,0 +1,72 @@
+---
+title: "Stat 123 Homework 11"
+author: "Jonathan Wilson"
+date: "January 31, 2019"
+output: word_document
+---
+
+```{r}
+
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW11")
+```
+
+A school district encourages students to read several books over the summer (TREATMENT 1), but the results have not been good.  In hopes of raising reading levels, the district is considering funding a summer English course (TREATMENT 2).  Because TREATMENT 2 would be expensive, the school district conducts a study to see if the difference between post- and pre-test scores are statistically higher under TREATMENT 2 than TREATMENT 1.  Thirty students participate in a study, half of which are randomly assigned to each of the two treatments.  Pre- and post-test scores for the two treatments are below.
+
+```{r}
+pre1  <- c(3, 5, 4, 6, 5, 13, 8, 7, 3, 8, 7, 2, 5, 2, 2)
+post1 <- c(5, 9, 5, 8, 10, 9, 12, 5, 8, 7, 12, 4, 4, 8, 6)
+
+pre2  <- c(4, 5, 3, 5, 9, 8, 5, 5, 7, 7, 4, 4, 6, 8, 4)
+post2 <- c(4, 6, 9, 12, 16, 15, 14, 12, 12, 8, 13, 9, 12, 12, 12)
+```
+
+Create of list named 'pre' of length two containing the pre-test scores of the two treatments.
+
+```{r}
+pre <- list(pre1, pre2)
+```
+
+Create of list named 'post' of length two containing the post-test scores of the two treatments.
+
+```{r}
+post <- list(post1, post2)
+```
+
+Use the 'lapply' function and the objects 'pre' and 'post' to compute the mean pre-test scores of the two treatments.  Do the same for the post-test scores.
+
+```{r}
+mean.pre <- lapply(pre, mean)
+mean.post <- lapply(post, mean)
+mean.pre
+mean.post
+```
+
+Do the same for as above, this time using the 'sapply' function.
+
+```{r}
+mean.pre.s <- sapply(pre, mean)
+mean.post.s <- sapply(post, mean)
+mean.pre.s
+mean.post.s
+```
+
+Because the data is paired by student, we are interested in the increase from pre-test to post-test scores.  Using the function 'mapply' and the objects 'pre' and 'post', construct a 15-by-2 matrix containing the difference in post- and pre-test scores, where the first column is for TREATMENT 1 and the second is TREATMENT 2.  Name this matrix 'differences'.
+
+```{r}
+#Diff pre1 - post1 for treatment 1
+differences <- mapply("-", post, pre)
+differences
+```
+
+Use the 'apply' function and the 15-by-2 'differences' matrix you just created to compute the mean difference in post- and pre-test scores for the two treatments.
+
+```{r}
+mean.treatments <- apply(differences, 2, mean)
+mean.treatments
+```
+
+Compare your results above with results from the t.test function in which the first two arguments are the two columns of the 'differences' matrix.
+
+```{r}
+t.test(differences[,1],differences[,2])
+```

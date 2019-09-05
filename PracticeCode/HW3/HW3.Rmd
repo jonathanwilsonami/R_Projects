@@ -1,0 +1,47 @@
+---
+title: "Stat 123 Homework 3"
+author: "Jonathan Wilson"
+date: "January 11, 2019"
+output: word_document
+---
+```{r}
+#Make working directory global
+knitr::opts_knit$set(root.dir = "C:\\Users\\jon\\Documents\\School\\R\\HW\\HW3")
+```
+Make a list containing three elements named "y2011", "y2012", and "y2013"
+containing three data.frames of weather information for years 2011, 2012, and
+2013 in Provo. You will need to read in the data found in the instructions.
+
+```{r}
+y2011 <- read.table("Weather2011.csv", sep=",", header=TRUE,
+                  stringsAsFactors=FALSE)
+y2012 <- read.table("Weather2012.csv", sep=",", header=TRUE,
+                  stringsAsFactors=FALSE)
+y2013 <- read.table("Weather2013.csv", sep=",", header=TRUE,
+                  stringsAsFactors=FALSE)
+
+weather.provo <- list(y2011, y2012, y2013) 
+```
+
+Using the list you created, how many days in 2011 had a maximum temperature above 90 degrees?  Watch out, there may be missing values!
+```{r}
+Temp.Max2011 <- weather.provo[[1]]$Temp.MaxF > 90 #Will give TRUE or FALSE.
+sum(Temp.Max2011, na.rm = TRUE)#TRUE is 1 so sum all 1s
+#na.rm gets rid of NAs
+```
+
+
+Using the list you created, how many days in 2012 had a maximum temperature above 90 degrees?
+```{r}
+Temp.Max2012 <- weather.provo[[2]]$Temp.MaxF > 90 #Will give TRUE or FALSE.
+sum(Temp.Max2012, na.rm = TRUE)#TRUE is 1 so sum all 1s
+#na.rm gets rid of NAs
+```
+
+
+Using the list you created, how many days in 2013 had a maximum temperature above 90 degrees?
+```{r}
+Temp.Max2013 <- weather.provo[[3]]$Temp.MaxF > 90 #Will give TRUE or FALSE.
+sum(Temp.Max2013, na.rm = TRUE)#TRUE is 1 so sum all 1s
+#na.rm gets rid of NAs
+```

@@ -1,0 +1,63 @@
+---
+title: "Stat 123 Homework 1"
+author: "Jonathan Wilson"
+date: "January 5, 2019"
+output: word_document
+---
+
+```{r}
+setwd("C:\\Users\\jon\\Documents\\School\\R\\HW\\HW1")
+```
+Load the mtcars dataset that comes preinstalled in R using the data() function.
+```{r}
+data(mtcars)#Load data from mtcars
+```
+
+Find the mean of the miles per gallon variable.
+```{r}
+mpg <- mtcars$mpg
+mean(mpg)
+```
+
+Compute the linear correlation between the "mpg" and "cyl" variables. Hint: if you don't know which function to use, try typing "correlation" in the search bar of the help tab in RStudio. 
+```{r}
+cyl <- mtcars$cyl
+cor(mpg, cyl)#cor.test gives more info cor() gives just the cor. 
+```
+
+Compute the linear correlation between the "mpg" and "gear" variables.
+```{r}
+gears <- mtcars$gear
+cor(mpg, gears)
+```
+
+Find the mean of the "mpg" variable for each value of the "gear" variable.
+```{r}
+#Gear 3
+gear3.table <- mtcars[mtcars$gear==3,]
+mean(gear3.table$mpg)
+
+#Gear 4
+gear4.table <- mtcars[mtcars$gear==4,]
+mean(gear4.table$mpg)
+
+#Gear 5
+gear5.table <- mtcars[mtcars$gear==5,]
+mean(gear5.table$mpg)
+```
+
+Find the median of the "mpg" variable for each value of the "gear" variable.
+```{r}
+median(gear3.table$mpg)
+median(gear4.table$mpg)
+median(gear5.table$mpg)
+```
+
+Find the make and model of the car with the highest miles per gallon.  What are its "cyl" and "gear" values?
+```{r}
+max.mpg <- max(mtcars$mpg)
+car <- mtcars[mtcars$mpg==max.mpg,]
+car.type <- row.names(car)#Extracts the row name
+car.type
+```
+
